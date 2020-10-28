@@ -1,6 +1,6 @@
-\documentclass[table,xcdraw,12pt,a4paper]{scrartcl}  
+\documentclass[table,xcdraw,10pt,a4paper]{scrartcl}  
 
-\usepackage[german]{babel}
+\usepackage[ngerman]{babel}
 
 \usepackage{amsmath}
 \usepackage{epigraph}
@@ -29,7 +29,7 @@
 
 \definecolor{titlepagecolor}{cmyk}{1,.60,0,.40}
 
-\DeclareFixedFont{\titlefont}{T1}{ppl}{b}{it}{0.5in}
+%\DeclareFixedFont{\titlefont}{T1}{ppl}{b}{it}{0.5in}
 
 
 % Footnotes
@@ -61,13 +61,7 @@ $endif$
 $if(tables)$
 \usepackage{array}
 
-% Continuing on the topic of tables ... (we havent reached `endif`). 
-% The commented out line below is in the default pandoc  latex.template.
-% Some unpleasantness with table formatting must be corrected.
-
-% -- This is needed because raggedright in table elements redefines \\:
-\newcommand{\PreserveBackslash}[1]{\let\temp=\\#1\let\\=\temp}
-\let\PBS=\PreserveBackslash
+\usepackage{longtable} % This two Packages are needet for Pandoc Table support. Issue is opened: https://github.com/jgm/pandoc/issues/1023
 $endif$
 
 
