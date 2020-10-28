@@ -1,180 +1,33 @@
-%!TEX TS-program = xelatex
-\documentclass[12pt]{scrartcl}  
+\documentclass[table,xcdraw,12pt,a4paper]{scrartcl}  
 
-% The declaration of the document class:
+\usepackage[german]{babel}
 
-% The second line here, i.e.
-% \documentclass[12pt]{scrartcl} 
-% is a standard LaTeX document class declaration: 
-% we say what kind of document we are making in curly brackets, 
-% and specify any options in square brackets.
-
-% (The previous line is a pseudo-comment, declaring that we will
-% use the special XeTeX machinery for its more extensive font list
-% and its use of unicode; 
-% in general, LaTeX 'comments' like this one
-%  begin with % and end with a linebreak.)
-
-% Note that there we have nothing in the nature of a template;
-% it's just a standard bit of LaTeX pandoc will copy unaltered into the 
-% LaTeX file it is writing.  But suppose you wrote something
-% more akin to the corresponding line in Pandoc's default 
-% latex.template file, say:
-
-% \documentclass$if(fontsize)$[$fontsize$]$endif${scrartcl}
-
-% then you would have invented a 'variable', fontsize, 
-% and could write things like 
-
-% `markdown2pdf my.txt --xetex --variable=fontsize:12pt -o my.pdf` or
-% `pandoc -r markdown -w html my.txt -s --xetex --variable=fontsize:24pt -o my.tex`. 
-
-% If we specified --variable-fontsize:12, then template substitution
-% would yield a LaTeX document beginning
-% \documentclass[12pt]{scrarcl}
-% which is just what we said anyway. 
-% But we could also specify a different fontsize.
-
-% I don't use this `--variable=....`functionality myself; 
-% I have a couple of basic templates I call with 
-% `--template=whatever.template` which I can also 
-% easily inspect to adjust things like font size as I please. 
-
-% While we are discussing the declaration of the document class...
-% here's an alternative command for two column landscape, 
-% not bad for some purposes. (If you strike the word 'landscape' 
-% you will have two narrow newspaperlike
-% columns; scientists like that, because irrationality must
-% show itself somewhere):
-%\documentclass[12pt,twocolumn,landscape]{scrartcl} 
-% Columns are too close together in LaTeX so we add this 
-% `columnsep` command:
-%\setlength{\columnsep}{.5in}
-
-
-% I use the special 'komascript' article class "scrartcl" 
-% reasons I can't entirely remember; I'm not sure it's that great.
-% One reason is the unimportant one that, like many classes,
-% it allows very big fonts which are convenient for booklet printing 
-% in the idiotic American way by shrinking letterpaper pages.
-
-% the standard minimal LaTeX 'article' class declaration would be something like:
-
-% \documentclass[12pt]{article} 
-
-% or for big type:
-
-% \documentclass[24pt]{extarticle}
-
-% but these restrict you to old-fashioned LaTeX materials.
-% Note that Kieran Healy uses the swank 'Memoir' class, 
-% \documentclass[11pt,article,oneside]{memoir}
-% which might be worth a look. 
-
-% Enough about the document class.
-
-% -- We are in swanky unicode, XeTeX land, and must now import these packages:
-\usepackage{fontspec,xltxtra,xunicode}
-% fontspec means we can specify pretty much any font.
-% Because we are using XeTeX material,
-% this template needs to be called with the `--xetex` flag. 
-
-
-% Symbols: 
-% Pandoc imports the extensive `amsmath` collection of symbols 
-% for typesetting ordinary math.  
 \usepackage{amsmath}
-% if you use exotic symbols you need to import specific packages, eg. for
-% electrical engineering diagrams, musical notation, exotic currency symbols,
-% the unspeakable rites of freemasonry etc.
+\usepackage{epigraph}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{tikz}
+\usepackage[utf8]{inputenc}
+\usepackage{titling,lipsum}
+
+\renewcommand\epigraphflush{flushright}
+\renewcommand\epigraphsize{\normalsize}
+\setlength\epigraphwidth{0.7\textwidth}
+\setlength\parindent{0pt}
+
+% Section numbering.  
+% Here again is a variable you can specify on the commandline
+% `markdown2pdf my.txt --number-sections --xetex --template=/wherever/this/is -o my.pdf`
+%\setcounter{secnumdepth}{0}
 
 
-% `babel`: 
-% The `babel` package, among other things, lets you determine what 
-% language you are using in a given stretch of text, so that typesetting 
-% will go well. Here we specify that mostly, we are speaking English:
-\usepackage[de]{babel}
+\definecolor{titlepagecolor}{cmyk}{1,.60,0,.40}
 
+\DeclareFixedFont{\titlefont}{T1}{ppl}{b}{it}{0.5in}
 
-% Margins, etc:
-% the `geometry` package makes for convenient adjusting of margins, which is what
-% you asked about.  Of course it can do much more, even make coffee for you:
-\usepackage{geometry}
-\geometry{verbose,letterpaper,tmargin=3cm,bmargin=3cm,lmargin=3cm,rmargin=3cm}
-% so if you just keep a copy of this template in the directory you are working in, you
-% can adjust the margins by going into this file and messing with the margins.
-% the syntax is very unforgiving, but permits 3cm and 2.5in and some other things.
-
-
-% Font:
-% Here I set my main font, which is an Apple Corporation Exclusive, golly. 
-
-% \setmainfont{Hoefler Text}
-% \setromanfont[Mapping=tex-text,Contextuals={NoWordInitial,NoWordFinal,NoLineInitial,NoLineFinal},Ligatures={NoCommon}]{Hoefler Text}
-
-% Hoefler Text is okay, but note the long discussion of 'contextuals' which is necessary to cools off 
-% some of its show-offy properties. (You can make your essay look like the 
-% Declaration of Independence by specifying e.g. Ligatures={Rare} )
-% If you have a copy you might try it; as it is
-% I will comment it out and supply something more certain to be around:
-
-\setmainfont{Times New Roman}
-
-% Properly one should specify a sanserif font and a monospace font
-% see e.g. the example of Kieran Healy:
-% \setromanfont[Mapping=tex-text,Numbers=OldStyle]{Minion Pro} 
-% \setsansfont[Mapping=tex-text]{Minion Pro} 
-% \setmonofont[Mapping=tex-text,Scale=0.8]{Pragmata}
-
-% But I hate sanserif fonts, and anyway there are defaults.
-
-
-
-% Heading styles:
-% These commands keep the koma system from making stupid sans serif section headings
-\setkomafont{title}{\rmfamily\mdseries\upshape\normalsize}
-\setkomafont{sectioning}{\rmfamily\mdseries\upshape\normalsize}
-\setkomafont{descriptionlabel}{\rmfamily\mdseries\upshape\normalsize}
-
-
-
-% I'm puzzled why I have this foonote speciality, 
-% I wonder if it's part of my problem I've been having, but wont look
-% into it now. 
-\usepackage[flushmargin]{footmisc} 
-% \usepackage[hang,flushmargin]{footmisc}
-
-
-% So much for my personal template.
-
-
-% Everything that follows is copied from the pandoc default template:
-% I will interpolate a few comments, the comments that are in 
-% the default template will be marked % -- 
-
-% Paragraph format:
-% Pandoc prefers unindented paragraphs in the European style:
-\setlength{\parindent}{0pt}
-%  ... with paragraph breaks marked by a slight lengthening of 
-% the space between paragraphs:
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
-
-% Page format:
-\pagestyle{plain}  
-% The default `plain` pagestyle just numbers the pages,
-% whereas  
-% \pagestyle{empty} 
-% would give you no numbering.
-% After one-million man-years of macro-composition, 
-% there are also fancy pagestyles with much wilder options 
-% for headers and footers, of course.
 
 % Footnotes
-% if you have code in your footnotes, the million macro march 
-% kind of bumps into itself.
-% Pandoc, having just rendered your text into LaTeX, 
-% knows whether the 'variable' `verbatim-in-note` is True, and 
-% If it is, it asks for a  LaTeX package that solves the dilemma:
 $if(verbatim-in-note)$
 \usepackage{fancyvrb}
 $endif$
@@ -210,7 +63,6 @@ $if(tables)$
 % -- This is needed because raggedright in table elements redefines \\:
 \newcommand{\PreserveBackslash}[1]{\let\temp=\\#1\let\\=\temp}
 \let\PBS=\PreserveBackslash
-
 $endif$
 
 
@@ -224,18 +76,6 @@ $endif$
 
 
 % Web-style links:
-
-% markdown inclines us to use links, since our texts can be made into html. 
-% Why not have clickable blue links even in 
-% learned, scientific, religious, juridical, poetical and other suchlike texts? 
-% Never mind that they have been proven to destroy the nervous system!
-
-% First, what about the fact that links like http://example.com are 
-% technically code and thus must not be broken across lines? 
-% [breaklinks=true] to the rescue!
-
-% Nowadays LaTeX can handle all of this with another half million macros:
-
 \usepackage[breaklinks=true]{hyperref}
 \hypersetup{colorlinks,%
 citecolor=blue,%
@@ -245,7 +85,6 @@ urlcolor=blue}
 $if(url)$
 \usepackage{url}
 $endif$
-
 
 
 % Images. 
@@ -266,7 +105,6 @@ $if(graphics)$
 \let\Oldincludegraphics\includegraphics
 \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=\maxwidth]{#1}}
 $endif$
-
 
 
 % Section numbering.  
@@ -308,6 +146,66 @@ $if(date)$
 \date{$date$}
 $endif$
 
+
+% The following code is borrowed from: https://tex.stackexchange.com/a/86310/10898
+
+\newcommand\titlepagedecoration{%
+\begin{tikzpicture}[remember picture,overlay,shorten >= -10pt]
+
+\coordinate (aux1) at ([yshift=-15pt]current page.north east);
+\coordinate (aux2) at ([yshift=-410pt]current page.north east);
+\coordinate (aux3) at ([xshift=-4.5cm]current page.north east);
+\coordinate (aux4) at ([yshift=-150pt]current page.north east);
+
+\begin{scope}[titlepagecolor!40,line width=12pt,rounded corners=12pt]
+\draw
+  (aux1) -- coordinate (a)
+  ++(225:5) --
+  ++(-45:5.1) coordinate (b);
+\draw[shorten <= -10pt]
+  (aux3) --
+  (a) --
+  (aux1);
+\draw[opacity=0.6,titlepagecolor,shorten <= -10pt]
+  (b) --
+  ++(225:2.2) --
+  ++(-45:2.2);
+\end{scope}
+\draw[titlepagecolor,line width=8pt,rounded corners=8pt,shorten <= -10pt]
+  (aux4) --
+  ++(225:0.8) --
+  ++(-45:0.8);
+\begin{scope}[titlepagecolor!70,line width=6pt,rounded corners=8pt]
+\draw[shorten <= -10pt]
+  (aux2) --
+  ++(225:3) coordinate[pos=0.45] (c) --
+  ++(-45:3.1);
+\draw
+  (aux2) --
+  (c) --
+  ++(135:2.5) --
+  ++(45:2.5) --
+  ++(-45:2.5) coordinate[pos=0.3] (d);   
+\draw 
+  (d) -- +(45:1);
+\end{scope}
+\end{tikzpicture}%
+}
+
+%-------------------------------
+% Setup Header and Footer
+%-------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{$title$}
+\lhead{}
+\lfoot{$if(project)$Projekt: $project$ $endif$,$if(version)$ Vers. $version$ $endif$}
+\cfoot{$date$}
+\rfoot{Page \thepage}
+
+\renewcommand{\footrulewidth}{0.5pt}
+
+
 % At last: 
 % The document itself!:
 
@@ -327,14 +225,83 @@ $endif$
 
 \begin{document}
 
+% ----------------------------------------------------------------------------------
+% Titelseite
+% ----------------------------------------------------------------------------------
+$if(tp)$
 
-$if(title)$
-\maketitle
+\begin{titlingpage}
+    \noindent
+    \Huge \textbf{\uppercase{$title$}}
+
+    \vspace{1.5cm}
+    \hfill\begin{minipage}{\dimexpr\textwidth-1cm}
+    \Large 
+    $if(project)$\textbf{Projekttitel:} $project$\\$endif$
+    $if(version)$\textbf{Version:} $version$ \\$endif$
+    $if(date)$\textbf{Datum:} $date$ $endif$
+    \end{minipage}
+
+    \null\vfill
+
+    \vspace*{1cm}
+
+    $if(changelog)$
+    \large
+    \textcolor{gray}{\textbf{\uppercase{Dokumentenversion}}}
+
+    \begin{table}[!htb]
+    \small
+    \resizebox{.9\textwidth}{!}{\begin{tabular}{@{}llll@{}}
+    \toprule
+    Version & Datum       & Autor              & Bemerkungen \\ \midrule
+    $for(changelog)$
+        $changelog.version$   & $changelog.date$ & $changelog.author$ & $changelog.note$   \\ 
+    $endfor$
+    \bottomrule
+    \end{tabular}}
+    \end{table}
+    $endif$
+
+
+    \titlepagedecoration
+\end{titlingpage}
+$else$
+
+    \Huge \textbf{\uppercase{$title$}}
+
+    \vspace{.5cm}
+    \hfill\begin{minipage}{\dimexpr\textwidth-1cm}
+    \Large 
+    $if(project)$\textbf{Projekttitel:} $project$\\$endif$
+    $if(version)$\textbf{Version:} $version$ \\$endif$
+    $if(date)$\textbf{Datum:} $date$ $endif$
+    \end{minipage}
+
+    \vspace*{2cm}
+
+    $if(changelog)$
+    \large
+    \textcolor{gray}{\textbf{\uppercase{Dokumentenversion}}}
+
+    \begin{table}[!htb]
+    \small
+    \resizebox{.9\textwidth}{!}{\begin{tabular}{@{}llll@{}}
+    \toprule
+    Version & Datum       & Autor              & Bemerkungen \\ \midrule
+    $for(changelog)$
+        $changelog.version$   & $changelog.date$ & $changelog.author$ & $changelog.note$   \\ 
+    $endfor$
+    \bottomrule
+    \end{tabular}}
+    \end{table}
+    $endif$
+
 $endif$
 
 $if(toc)$
 \tableofcontents
-
+$if(tp)$\newpage$endif$
 $endif$
 
 
