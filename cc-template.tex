@@ -237,7 +237,10 @@ $if(tp)$
 
 \begin{titlingpage}
     \noindent
-    \Huge \textbf{\uppercase{$title$}}
+    \begin{minipage}{0.7\textwidth}
+         \LARGE \textbf{\uppercase{$title$}}
+    \end{minipage}
+
 
     \vspace{1.5cm}
     \hfill\begin{minipage}{\dimexpr\textwidth-1cm}
@@ -273,20 +276,19 @@ $if(tp)$
 \end{titlingpage}
 $else$
 
-    \Huge \textbf{\uppercase{$title$}}
+    \maketitle
 
     \vspace{.5cm}
-    \hfill\begin{minipage}{\dimexpr\textwidth-1cm}
-    \Large 
+    
+    
     $if(project)$\textbf{Projekttitel:} $project$\\$endif$
     $if(version)$\textbf{Version:} $version$ \\$endif$
     $if(date)$\textbf{Datum:} $date$ $endif$
-    \end{minipage}
-
-    \vspace*{2cm}
+      
+    \vspace*{1cm}
 
     $if(changelog)$
-    \large
+    
     \textcolor{gray}{\textbf{\uppercase{Dokumentenversion}}}
 
     \begin{table}[!htb]
@@ -301,6 +303,7 @@ $else$
     \end{tabular}}
     \end{table}
     $endif$
+    \vspace{2cm}
 
 $endif$
 
