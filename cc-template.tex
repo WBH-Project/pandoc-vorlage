@@ -13,7 +13,6 @@
 \usepackage{parskip}
 \usepackage{lastpage} % To referenze Page # of ##
 
-
 \usepackage[a4paper, top=27mm, left=25mm, right=25mm, bottom=30mm, headsep=10mm, footskip=12mm]{geometry} % Vorgabe 4cm Rand auf der rechten Seite.
 
 
@@ -200,8 +199,8 @@ $endif$
 %-------------------------------
 \pagestyle{fancy}
 \fancyhf{}
-\rhead{$title$}
-\lhead{}
+\rhead{\color{titlepagecolor}\underline{$title$}}
+\renewcommand{\headrulewidth}{0pt} % Delete the Header lining
 \rfoot{\tiny{Seite \thepage\ von \pageref*{LastPage}\\
           $if(date)$Datum: $date$\\$endif$
           $if(version)$Vers. $version$$endif$}}
