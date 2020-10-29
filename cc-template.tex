@@ -12,6 +12,7 @@
 \usepackage{titling,lipsum}
 \usepackage{parskip}
 \usepackage{lastpage} % To referenze Page # of ##
+\usepackage{titling} % To redesign \maketitle
 
 \usepackage[a4paper, top=27mm, left=25mm, right=25mm, bottom=30mm, headsep=10mm, footskip=12mm]{geometry} % Vorgabe 4cm Rand auf der rechten Seite.
 
@@ -130,24 +131,13 @@ $for(header-includes)$
 $header-includes$
 $endfor$
 
-% Title, authors, date.
-% If you specified title authors and date at the start of 
-% your pandoc-markdown file, pandoc knows the 'values' of the
-% variables: title authors date and fills them in.
-
-$if(title)$
-\title{$title$}
-$endif$
-\author{$for(author)$$author$$sep$\\$endfor$}
-$if(date)$
-\date{$date$}
-$endif$
 
 %------------------------------------------
 % Style the graphics on the titlepage
 %------------------------------------------
 
-\definecolor{titlepagecolor}{cmyk}{1,.60,0,.40}
+%\definecolor{titlepagecolor}{cmyk}{1,.60,0,.40}
+\definecolor{titlepagecolor}{cmyk}{1,0.43,0,0.35} % WBH Color
 
 % The following code is borrowed from: https://tex.stackexchange.com/a/86310/10898
 
@@ -194,6 +184,35 @@ $endif$
 \end{tikzpicture}%
 }
 
+\newcommand\pagedecoration{%
+\begin{tikzpicture}[remember picture,overlay,shorten >= -10pt]
+
+\coordinate (aux1) at ([yshift=-15pt]current page.north east);
+\coordinate (aux2) at ([yshift=-410pt]current page.north east);
+\coordinate (aux3) at ([xshift=-4.5cm]current page.north east);
+\coordinate (aux4) at ([yshift=-150pt]current page.north east);
+
+\begin{scope}[titlepagecolor!40,line width=12pt,rounded corners=12pt]
+\draw
+  (aux1) -- coordinate (a)
+  ++(225:5) --
+  ++(-45:5.1) coordinate (b);
+\draw[shorten <= -10pt]
+  (aux3) --
+  (a) --
+  (aux1);
+\draw[opacity=0.6,titlepagecolor,shorten <= -10pt]
+  (b) --
+  ++(225:2.2) --
+  ++(-45:2.2);
+\end{scope}
+\draw[titlepagecolor,line width=8pt,rounded corners=8pt,shorten <= -10pt]
+  (aux4) --
+  ++(225:0.8) --
+  ++(-45:0.8);
+\end{tikzpicture}%
+}
+
 %-------------------------------
 % Setup Header and Footer
 %-------------------------------
@@ -206,10 +225,59 @@ $endif$
           $if(version)$Vers. $version$$endif$}}
 
 %-----------------------------
-% def title
+% Style the Title
 %-----------------------------
+% Title, authors, date.
+% If you specified title authors and date at the start of 
+% your pandoc-markdown file, pandoc knows the 'values' of the
+% variables: title authors date and fills them in.
+
+$if(title)$
+\title{$title$}
+$endif$
+\author{}
+\date{}
+
 
 \def\title#1{\Huge\raggedright{\textbf{#1}}\vskip .5em}
+
+\setlength\droptitle{-20mm}
+
+\newcommand{\projectdetails}{
+\begin{tabular}[b]{ll}
+$if(project)$\textbf{Projekttitel:} &$project$\\$endif$
+$if(version)$\textbf{Version:} &$version$ \\$endif$
+$if(date)$\textbf{Datum:} &$date$ $endif$
+\end{tabular}} 
+
+\renewcommand{\maketitlehookb}{%
+\vspace{1cm}
+\projectdetails
+
+\vspace{1.5cm}
+ $if(changelog)$
+    \large
+    
+    \textcolor{gray}{\textbf{\uppercase{Dokumentenversion}}}
+    \begin{table}[!htb]
+    \scriptsize
+    \begin{tabular}{@{}llll@{}}
+    \toprule
+    Version & Datum       & Autor              & Bemerkungen \\ \midrule
+    $for(changelog)$
+        $changelog.version$   & $changelog.date$ & $changelog.author$ & $changelog.note$   \\ 
+    $endfor$
+    \bottomrule
+    \end{tabular}
+    \end{table}
+    $endif$
+}
+
+\renewcommand{\maketitlehooka}{%
+\begin{center}
+\includegraphics[width=0.6\textwidth]{logo-wbh.jpg}
+\end{center}
+}
 
 % At last: 
 % The document itself!:
@@ -248,11 +316,7 @@ $if(tp)$
     \vspace{1.5cm}
     \hfill\begin{minipage}{\dimexpr\textwidth-1cm}
     \large 
-    \begin{tabular}[b]{ll}
-    $if(project)$\textbf{Projekttitel:} &$project$\\$endif$
-    $if(version)$\textbf{Version:} &$version$ \\$endif$
-    $if(date)$\textbf{Datum:} &$date$ $endif$
-    \end{tabular}
+    \projectdetails
     \end{minipage}
 
     \null\vfill
@@ -282,34 +346,10 @@ $if(tp)$
 $else$
 
     \maketitle
-
-    \vspace{.5cm}
+    \pagedecoration
     
-    
-    $if(project)$\textbf{Projekttitel:} $project$\\$endif$
-    $if(version)$\textbf{Version:} $version$ \\$endif$
-    $if(date)$\textbf{Datum:} $date$ $endif$
-      
-    \vspace*{1cm}
-
-    $if(changelog)$
-    
-    \textcolor{gray}{\textbf{\uppercase{Dokumentenversion}}}
-
-    \begin{table}[!htb]
-    \small
-    \resizebox{.9\textwidth}{!}{\begin{tabular}{@{}llll@{}}
-    \toprule
-    Version & Datum       & Autor              & Bemerkungen \\ \midrule
-    $for(changelog)$
-        $changelog.version$   & $changelog.date$ & $changelog.author$ & $changelog.note$   \\ 
-    $endfor$
-    \bottomrule
-    \end{tabular}}
-    \end{table}
-    $endif$
-    \vspace{2cm}
-
+    \vspace*{-5em}
+  
 $endif$
 
 $if(toc)$
