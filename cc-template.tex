@@ -1,4 +1,4 @@
-\documentclass[table,xcdraw,10pt,a4paper]{scrartcl}  
+\documentclass[table,xcdraw,11pt,a4paper]{scrartcl}  
 
 \usepackage[ngerman]{babel}
 
@@ -11,8 +11,11 @@
 \usepackage[utf8]{inputenc}
 \usepackage{titling,lipsum}
 \usepackage{parskip}
+\usepackage{lastpage} % To referenze Page # of ##
 
-%\usepackage[a4paper, top=27mm, left=30mm, right=20mm, bottom=30mm, headsep=10mm, footskip=12mm]{geometry} % Vorgabe 4cm Rand auf der rechten Seite.
+
+\usepackage[a4paper, top=27mm, left=25mm, right=25mm, bottom=30mm, headsep=10mm, footskip=12mm]{geometry} % Vorgabe 4cm Rand auf der rechten Seite.
+
 
 \setlength\epigraphwidth{0.7\textwidth}
 
@@ -199,12 +202,15 @@ $endif$
 \fancyhf{}
 \rhead{$title$}
 \lhead{}
-\lfoot{$if(project)$Projekt: $project$ $endif$,$if(version)$ Vers. $version$ $endif$}
-\cfoot{$date$}
-\rfoot{Page \thepage}
+\rfoot{\tiny{Seite \thepage\ von \pageref*{LastPage}\\
+          $if(date)$Datum: $date$\\$endif$
+          $if(version)$Vers. $version$$endif$}}
 
-\renewcommand{\footrulewidth}{0.5pt}
+%-----------------------------
+% def title
+%-----------------------------
 
+\def\title#1{\Huge\raggedright{\textbf{#1}}\vskip .5em}
 
 % At last: 
 % The document itself!:
@@ -232,20 +238,22 @@ $if(tp)$
 
 \begin{titlingpage}
     
-    
-    
-    \begin{minipage}{0.7\textwidth}
+    \begin{center}
+    \includegraphics[width=.8\textwidth]{logo-wbh.jpg}
+    \end{center}
+
     \vspace{2cm}
-         \LARGE \textbf{\uppercase{$title$}}
-    \end{minipage}
+    \title{$title$}
 
 
     \vspace{1.5cm}
     \hfill\begin{minipage}{\dimexpr\textwidth-1cm}
-    \Large 
-    $if(project)$\textbf{Projekttitel:} $project$\\$endif$
-    $if(version)$\textbf{Version:} $version$ \\$endif$
-    $if(date)$\textbf{Datum:} $date$ $endif$
+    \large 
+    \begin{tabular}[b]{ll}
+    $if(project)$\textbf{Projekttitel:} &$project$\\$endif$
+    $if(version)$\textbf{Version:} &$version$ \\$endif$
+    $if(date)$\textbf{Datum:} &$date$ $endif$
+    \end{tabular}
     \end{minipage}
 
     \null\vfill
@@ -257,7 +265,7 @@ $if(tp)$
     \textcolor{gray}{\textbf{\uppercase{Dokumentenversion}}}
 
     \begin{table}[!htb]
-    \small
+    \scriptsize
     \resizebox{.9\textwidth}{!}{\begin{tabular}{@{}llll@{}}
     \toprule
     Version & Datum       & Autor              & Bemerkungen \\ \midrule
