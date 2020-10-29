@@ -12,10 +12,8 @@
 \usepackage{titling,lipsum}
 \usepackage{parskip}
 
-\usepackage[a4paper, top=27mm, left=30mm, right=20mm, bottom=30mm, headsep=10mm, footskip=12mm]{geometry} % Vorgabe 4cm Rand auf der rechten Seite.
+%\usepackage[a4paper, top=27mm, left=30mm, right=20mm, bottom=30mm, headsep=10mm, footskip=12mm]{geometry} % Vorgabe 4cm Rand auf der rechten Seite.
 
-%\renewcommand\epigraphflush{flushright}
-%\renewcommand\epigraphsize{\normalsize}
 \setlength\epigraphwidth{0.7\textwidth}
 
 % Einrückung bei neuem Absatz entfernen
@@ -26,8 +24,6 @@
 % `markdown2pdf my.txt --number-sections --xetex --template=/wherever/this/is -o my.pdf`
 %\setcounter{secnumdepth}{0}
 
-
-\definecolor{titlepagecolor}{cmyk}{1,.60,0,.40}
 
 %\DeclareFixedFont{\titlefont}{T1}{ppl}{b}{it}{0.5in}
 
@@ -145,6 +141,11 @@ $if(date)$
 \date{$date$}
 $endif$
 
+%------------------------------------------
+% Style the graphics on the titlepage
+%------------------------------------------
+
+\definecolor{titlepagecolor}{cmyk}{1,.60,0,.40}
 
 % The following code is borrowed from: https://tex.stackexchange.com/a/86310/10898
 
@@ -230,8 +231,11 @@ $endif$
 $if(tp)$
 
 \begin{titlingpage}
-    \noindent
+    
+    
+    
     \begin{minipage}{0.7\textwidth}
+    \vspace{2cm}
          \LARGE \textbf{\uppercase{$title$}}
     \end{minipage}
 
