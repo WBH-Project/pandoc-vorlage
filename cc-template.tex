@@ -273,11 +273,13 @@ $if(date)$\textbf{Datum:} &$date$ $endif$
     $endif$
 }
 
+$if(logo)$
 \renewcommand{\maketitlehooka}{%
 \begin{center}
-\includegraphics[width=0.6\textwidth]{logo-wbh.jpg}
+\includegraphics[width=0.6\textwidth]{$logo$}
 \end{center}
 }
+$endif$
 
 % At last: 
 % The document itself!:
@@ -305,11 +307,13 @@ $if(tp)$
 
 \begin{titlingpage}
     
+    $if(logo)$
     \begin{center}
-    \includegraphics[width=.8\textwidth]{logo-wbh.jpg}
+    \includegraphics[width=.8\textwidth]{$logo$}
     \end{center}
 
     \vspace{2cm}
+    $endif$
     \title{$title$}
 
 
