@@ -1,5 +1,11 @@
-\documentclass[table,xcdraw,11pt,a4paper]{scrartcl}  
-
+\documentclass[
+    table,
+    xcdraw,
+    12pt,
+    a4paper,$if(tp)$titlepage, % Verwendung einer Titelseite
+    $endif$$if(toc)$listof=totoc, % Verzeichnisse im Inhaltsverzeichnis aufführen
+    $endif$]{scrartcl}  
+    
 \usepackage[ngerman]{babel}
 
 \usepackage{amsmath}
@@ -9,7 +15,6 @@
 \usepackage{fancyhdr}
 \usepackage{tikz}
 \usepackage[utf8]{inputenc}
-\usepackage{titling,lipsum}
 \usepackage{parskip}
 \usepackage{lastpage} % To referenze Page # of ##
 \usepackage{titling} % To redesign \maketitle
