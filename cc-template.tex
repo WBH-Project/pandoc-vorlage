@@ -18,6 +18,7 @@
 \usepackage{parskip}
 \usepackage{lastpage} % To referenze Page # of ##
 \usepackage{titling} % To redesign \maketitle
+\usepackage{tabularx} % For big tables
 
 \usepackage[a4paper, top=27mm, left=25mm, right=25mm, bottom=30mm, headsep=10mm, footskip=12mm]{geometry} % Vorgabe 4cm Rand auf der rechten Seite.
 
@@ -94,7 +95,7 @@ $endif$
 % commands and drawing packages.  Today we want to import .jpg files we make with 
 % our smart phones or whatever:
 
-%$if(graphics)$
+$if(graphics)$
 \usepackage{graphicx}
 % -- We will generate all images so they have a width \maxwidth. This means
 % -- that they will get their normal width if they fit onto the page, but
@@ -104,7 +105,7 @@ $endif$
 %\makeatother
 %\let\Oldincludegraphics\includegraphics
 %\renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=\maxwidth]{#1}}
-%$endif$
+$endif$
 
 
 % Section numbering.  
