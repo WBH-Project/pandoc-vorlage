@@ -9,7 +9,7 @@
 \usepackage[ngerman]{babel}
 
 \usepackage{amsmath}
-\usepackage{epigraph}
+
 \usepackage{booktabs}
 \usepackage{xcolor}
 \usepackage{fancyhdr}
@@ -21,8 +21,6 @@
 
 \usepackage[a4paper, top=27mm, left=25mm, right=25mm, bottom=30mm, headsep=10mm, footskip=12mm]{geometry} % Vorgabe 4cm Rand auf der rechten Seite.
 
-
-\setlength\epigraphwidth{0.7\textwidth}
 
 % Einrückung bei neuem Absatz entfernen
 \setlength\parindent{0pt}
@@ -83,7 +81,7 @@ $endif$
 \hypersetup{colorlinks,%
 citecolor=blue,%
 filecolor=blue,%
-linkcolor=blue,%
+linkcolor=black,%
 urlcolor=blue}
 $if(url)$
 \usepackage{url}
@@ -148,7 +146,9 @@ $endfor$
 %------------------------------------------
 
 %\definecolor{titlepagecolor}{cmyk}{1,.60,0,.40}
-\definecolor{titlepagecolor}{cmyk}{1,0.43,0,0.35} % WBH Color
+%\definecolor{titlepagecolor}{cmyk}{1,0.43,0,0.35} % WBH Color
+\definecolor{firmencolorOrange}{cmyk}{0,0.55,1,0.07} % Firmenfarbe Orange
+\definecolor{titlepagecolor}{cmyk}{0.85,0.46,0,0.34} % Firmenfarbe Blau
 
 % The following code is borrowed from: https://tex.stackexchange.com/a/86310/10898
 
@@ -229,6 +229,7 @@ $endfor$
 %-------------------------------
 \pagestyle{fancy}
 \fancyhf{}
+\lhead{\color{titlepagecolor}Projekt: Chaos}
 \rhead{\color{titlepagecolor}\underline{$title$}}
 \renewcommand{\headrulewidth}{0pt} % Delete the Header lining
 \rfoot{\tiny{Seite \thepage\ von \pageref*{LastPage}\\ $if(date)$Datum: $date$\\$endif$ $if(version)$Vers. $version$$endif$}}
