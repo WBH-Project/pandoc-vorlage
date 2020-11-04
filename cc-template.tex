@@ -9,7 +9,7 @@
 \usepackage[ngerman]{babel}
 
 \usepackage{amsmath}
-
+\usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{xcolor}
 \usepackage{fancyhdr}
@@ -88,26 +88,6 @@ urlcolor=blue}
 $if(url)$
 \usepackage{url}
 $endif$
-
-
-% Images. 
-% In ye olde LaTeX one could only import a limited range of image
-% types, e.g. the forgotten .eps files.  Or else one simply drew the image with suitable
-% commands and drawing packages.  Today we want to import .jpg files we make with 
-% our smart phones or whatever:
-
-$if(graphics)$
-\usepackage{graphicx}
-% -- We will generate all images so they have a width \maxwidth. This means
-% -- that they will get their normal width if they fit onto the page, but
-% -- are scaled down if they would overflow the margins.
-%\makeatletter
-%\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
-%\makeatother
-%\let\Oldincludegraphics\includegraphics
-%\renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=\maxwidth]{#1}}
-$endif$
-
 
 % Section numbering.  
 % Here again is a variable you can specify on the commandline
